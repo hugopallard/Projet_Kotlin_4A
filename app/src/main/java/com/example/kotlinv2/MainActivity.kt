@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Changing default background color
-        this.window.decorView.setBackgroundColor(Color.BLACK)
+        // Setting the default fragment
         replaceFragment(homeFragment)
 
         bottomNavigation = findViewById(R.id.bottom_navigation)

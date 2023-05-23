@@ -28,9 +28,6 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        // Changing default background color
-        this.window.decorView.setBackgroundColor(Color.BLACK)
-
         val extras = intent.extras
         if (extras != null) {
 

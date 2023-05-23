@@ -8,7 +8,7 @@ import com.example.projet_kotlin.model.SpokenLanguage
 data class MovieDetail(
     var adult: Boolean,
     var backdrop_path: String? = null,
-    var belongs_to_collection: String? = null,
+    var belongs_to_collection: MovieCollection? = null,
     var budget: Int,
     var genres: List<Genre>,
     var homepage: String? = null,
@@ -17,11 +17,11 @@ data class MovieDetail(
     var original_language: String,
     var original_title: String,
     var overview: String? = null,
-    var popularity: Double,
+    var popularity: Float,
     var poster_path: String? = null,
     var production_companies: List<ProductionCompany>,
     var production_countries: List<ProductionCountry>,
-    var release_date: String,  // Allowed Values: Rumored, Planned, In Production, Post Production, Released, Canceled
+    var release_date: String,
     var revenue: Int,
     var runtime: Int,
     var spoken_languages: ArrayList<SpokenLanguage>,
@@ -29,7 +29,7 @@ data class MovieDetail(
     var tagline: String? = null,
     var title: String,
     var video: Boolean,
-    var vote_average: Double,
+    var vote_average: Float,
     var vote_count: Int,
 ) {
     override fun toString(): String {
