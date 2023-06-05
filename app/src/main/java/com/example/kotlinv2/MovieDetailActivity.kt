@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,9 +34,6 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-
-        // Changing default backgroudn color
-        this.window.decorView.setBackgroundColor(Color.BLACK)
 
         similarMoviesRecyclerView = findViewById(R.id.similarMoviesRecyclerView)
         similarMoviesRecyclerView.setHasFixedSize(true)
@@ -85,6 +83,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     val movieDetailReleaseDate = findViewById<TextView>(R.id.movieDetailReleaseDate)
                     val movieDetailVoteAverage = findViewById<TextView>(R.id.movieDetailVoteAverage)
                     val movieDetailOverview = findViewById<TextView>(R.id.movieDetailOverview)
+                    val movieDetailRating = findViewById<RatingBar>(R.id.movieDetailRatingBar)
 
 
 
@@ -100,6 +99,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     movieDetailReleaseDate.text = responseBody.release_date
                     movieDetailVoteAverage.text = responseBody.vote_average.toString() + "/10"
                     movieDetailOverview.text = responseBody.overview
+                    movieDetailRating.rating = responseBody.vote_average
                 }
             }
 
