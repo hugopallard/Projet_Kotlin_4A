@@ -60,6 +60,7 @@ class ScanQRCodeFragment : Fragment() {
     private fun requestCameraPermission() {
         val permission = Manifest.permission.CAMERA
         ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), CAMERA_PERMISSION_REQUEST_CODE)
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
