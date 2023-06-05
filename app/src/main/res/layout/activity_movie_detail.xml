@@ -50,6 +50,7 @@
                         android:text="TextView"
                         android:textColor="@color/white"/>
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -95,6 +96,14 @@
                         android:layout_weight="1"
                         android:text="TextView"
                         android:textColor="@color/white" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/generateQrCodeButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:onClick="generateQRCode"
+                        app:srcCompat="?attr/actionModeShareDrawable" />
 
 
                 </LinearLayout>

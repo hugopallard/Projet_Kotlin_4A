@@ -1,6 +1,7 @@
 package com.example.kotlinv2
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +14,14 @@ import com.bumptech.glide.Glide
 import com.example.kotlin.model.MovieResponse
 import com.example.kotlinv2.fragments.BASE_URL
 import com.example.kotlinv2.model.MovieDetail
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.io.FileWriter
 
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -39,6 +43,7 @@ class MovieDetailActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         val extras = intent.extras
+
         if (extras != null) {
             movieId = extras.getInt("movieId")
             Log.e("Movie id: ", movieId.toString())
@@ -51,6 +56,19 @@ class MovieDetailActivity : AppCompatActivity() {
         } else {
             Log.d("MovieDetailsActivity", "Error, please give a movie ID")
         }
+
+
+
+
+
+        val fab: FloatingActionButton = findViewById(R.id.generateQrCodeButton)
+        fab.setOnClickListener {
+        val intent = Intent(this, FavorisActivity::class.java)
+        intent.putExtra("key", movieId) // Remplacez "key" par votre clé et data par la donnée à passer
+        startActivity(intent)}
+        addToFavoris(movieId)
+        Log.d("ajout aux fav", addToFavoris(movieId).toString())
+
     }
 
     private fun getMovieBasedOnId(context: Context, retrofitBuilder: ApiInterface, movieId: Int) {
@@ -67,6 +85,11 @@ class MovieDetailActivity : AppCompatActivity() {
                     val movieDetailReleaseDate = findViewById<TextView>(R.id.movieDetailReleaseDate)
                     val movieDetailVoteAverage = findViewById<TextView>(R.id.movieDetailVoteAverage)
                     val movieDetailOverview = findViewById<TextView>(R.id.movieDetailOverview)
+
+
+
+
+
 
                     Glide.with(context)
                         .load("https://image.tmdb.org/t/p/w500/" + responseBody.poster_path)
@@ -106,5 +129,54 @@ class MovieDetailActivity : AppCompatActivity() {
         })
     }
 
+    fun addToFavoris(movieId: Int){
+        val directory = applicationContext.filesDir
+        val directoryName = "Favoris"
+        val file = File(directory,"listeFavoris.txt")
+
+            // Ajouter les favoris dans le fichier
+                val fileWriter = FileWriter(file, true)
+                fileWriter.write("$movieId\n")
+
+//        try {
+//            // Vérifier si le fichier existe
+//            if (!file.exists()) {
+//                file.createNewFile()
+//                if (file.exists()) {
+//                    println("Le fichier existe.")
+//                    val chemin = file.absolutePath.toString()
+//                    println("Chemin du fichier : $chemin")
+//                } else {
+//                    println("Le fichier n'existe pas ou le chemin est incorrect.")
+//                }
+//            }
+
+    }
+
+    fun supprimerFavoriAvecArrayliste(idfilm:Int){
+        val movieIdList= ArrayList<Int>()
+        val file = File("/data/user/0/com.example.kotlinv2/files/Favoris/listeFavoris.txt")
+        if (file.exists() && file.canRead()) {
+            file.bufferedReader().useLines { lines ->
+                lines.forEach { line ->
+                    val id = line.trim()
+                    movieIdList.add(Integer.parseInt(id))
+
+                }
+            }
+            movieIdList.remove(idfilm)
+        } else {
+            println("fichier non existant ou illisible")
+
+        }
+
+    }
+
+    fun supprimeFavori(movieId: Int){
+        val file = File("/data/user/0/com.example.kotlinv2/files/Favoris/listeFavoris.txt")
+        val lines = file.readLines().toMutableList()
+        lines.remove(movieId.toString())
+        file.writeText(lines.joinToString("\n"))
+    }
 
 }
