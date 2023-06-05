@@ -31,6 +31,7 @@ interface ApiInterface {
         @Query("language") language: String,
     ): Call<MovieDetail>
 
+
     @GET("movie/{movie_id}/similar")
     fun getSimilarMovies(
         @Path("movie_id") movie_id: Int,

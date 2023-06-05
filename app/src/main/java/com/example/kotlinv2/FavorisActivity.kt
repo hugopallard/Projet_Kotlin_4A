@@ -26,7 +26,7 @@ import java.io.File
 
 class FavorisActivity:AppCompatActivity() {
 
-    private lateinit var myAdapter: FavorisAdapter
+    private lateinit var myAdapter: MovieAdapter
     private lateinit var favorisAdapter: FavorisAdapter
     private lateinit var favorisMovieContainer: LinearLayout
     private lateinit var favorisMoviesRecyclerView: RecyclerView
@@ -52,6 +52,7 @@ class FavorisActivity:AppCompatActivity() {
         }
 
 
+
     }
 
     private fun getMovieBasedOnId(context: Context, retrofitBuilder: ApiInterface, movieId: Int) {
@@ -63,26 +64,30 @@ class FavorisActivity:AppCompatActivity() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()!!
                     Log.e("Response", responseBody.toString())
-                    val movieDetailImageView = findViewById<ImageView>(R.id.movieDetailImageView)
-                    val movieDetailTitle = findViewById<TextView>(R.id.movieDetailTitle)
-                    val movieDetailReleaseDate = findViewById<TextView>(R.id.movieDetailReleaseDate)
-                    val movieDetailVoteAverage = findViewById<TextView>(R.id.movieDetailVoteAverage)
-                    val movieDetailOverview = findViewById<TextView>(R.id.movieDetailOverview)
-
-
-
-
-
-
-                    Glide.with(context)
-                        .load("https://image.tmdb.org/t/p/w500/" + responseBody.poster_path)
-                        .centerCrop()
-                        .into(movieDetailImageView)
-
-                    movieDetailTitle.text = responseBody.title
-                    movieDetailReleaseDate.text = responseBody.release_date
-                    movieDetailVoteAverage.text = responseBody.vote_average.toString() + "/10"
-                    movieDetailOverview.text = responseBody.overview
+//                    val movieDetailImageView = findViewById<ImageView>(R.id.movieDetailImageView)
+//                    val movieDetailTitle = findViewById<TextView>(R.id.movieDetailTitle)
+//                    val movieDetailReleaseDate = findViewById<TextView>(R.id.movieDetailReleaseDate)
+//                    val movieDetailVoteAverage = findViewById<TextView>(R.id.movieDetailVoteAverage)
+//                    val movieDetailOverview = findViewById<TextView>(R.id.movieDetailOverview)
+//
+//
+//
+//
+//
+//
+//                    Glide.with(context)
+//                        .load("https://image.tmdb.org/t/p/w500/" + responseBody.poster_path)
+//                        .centerCrop()
+//                        .into(movieDetailImageView)
+//
+//                    movieDetailTitle.text = responseBody.title
+//                    movieDetailReleaseDate.text = responseBody.release_date
+//                    movieDetailVoteAverage.text = responseBody.vote_average.toString() + "/10"
+//                    movieDetailOverview.text = responseBody.overview
+                    // creer un adapterqqui renvoie un moviedetails
+                   // myAdapter = MovieAdapter(context, responseBody)
+//                    myAdapter.notifyDataSetChanged()
+//                    favorisMoviesRecyclerView.adapter = myAdapter
                 }
             }
 

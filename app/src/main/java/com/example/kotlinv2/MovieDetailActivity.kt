@@ -59,7 +59,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
 
 
-        val fab: FloatingActionButton = findViewById(R.id.generateQrCodeButton)
+        val fab: FloatingActionButton = findViewById(R.id.favButton)
         fab.setOnClickListener {
         val intent = Intent(this, FavorisActivity::class.java)
         intent.putExtra("key", movieId) // Remplacez "key" par votre clé et data par la donnée à passer
