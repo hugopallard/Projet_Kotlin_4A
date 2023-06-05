@@ -33,10 +33,12 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
+                android:layout_marginVertical="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:scaleType="centerCrop">
 
                 <LinearLayout
-                    android:id="@+id/movieIntroSection"
+                    android:id="@+id/movieDetailIntroSection"
                     android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:layout_marginBottom="10dp"
@@ -48,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:text="TextView"
-                        android:textColor="@color/white"/>
+                       />
 
 
                     <LinearLayout
@@ -62,7 +64,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="TextView"
-                            android:textColor="@color/white"/>
+                            />
 
                         <TextView
                             android:id="@+id/movieDetailVoteAverage"
@@ -70,12 +72,12 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="TextView"
-                            android:textColor="@color/white"/>
+                            />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/movieOverviewSection"
+                    android:id="@+id/movieDetailOverviewSection"
                     android:layout_width="match_parent"
                     android:layout_height="158dp"
                     android:layout_marginBottom="10dp"
@@ -86,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:text="Overview"
-                        android:textColor="@color/white" />
+                        />
 
 
                     <TextView
@@ -95,8 +97,9 @@
                         android:layout_height="55dp"
                         android:layout_weight="1"
                         android:text="TextView"
-                        android:textColor="@color/white" />
+                         />
 
+<<<<<<< HEAD
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/generateQrCodeButton"
                         android:layout_width="match_parent"
@@ -105,6 +108,28 @@
                         android:onClick="generateQRCode"
                         app:srcCompat="?attr/actionModeShareDrawable" />
 
+=======
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/movieDetailRatingSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="158dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical"
+                    android:scaleType="centerCrop">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:text="Note du public"
+                        />
+
+                    <RatingBar
+                        android:id="@+id/movieDetailRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+>>>>>>> eafb8bd9354baebfa7662318a0cb548b8e2d14ac
 
                 </LinearLayout>
 
@@ -127,7 +152,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Similar"
-                            android:textColor="@color/white" />
+                            />
 
                     </LinearLayout>
 

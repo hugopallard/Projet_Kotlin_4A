@@ -30,7 +30,6 @@
                 android:queryHint="Search for a movie"
                 android:scaleType="centerCrop"
                 android:searchIcon="@drawable/ic_search"
-                android:textColor="@color/white"
                 android:theme="@style/ThemeOverlay.SearchView" />
 
             <LinearLayout
@@ -53,7 +52,6 @@
                         android:layout_marginBottom="20dp"
                         android:layout_weight="1"
                         android:text="Trending"
-                        android:textColor="@color/white"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -86,7 +84,6 @@
                         android:layout_marginBottom="20dp"
                         android:layout_weight="1"
                         android:text="Films populaires"
-                        android:textColor="@color/white"
                         android:textSize="20sp" />
 
                 </LinearLayout>

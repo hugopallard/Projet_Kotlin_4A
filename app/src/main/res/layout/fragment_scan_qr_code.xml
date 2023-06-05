@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ScanQRCodeFragment">
 
+<<<<<<< HEAD
     <FrameLayout
         android:id="@+id/scanContainer"
         android:layout_width="match_parent"
@@ -31,5 +32,16 @@
             tools:ignore="MissingConstraints" />
     </FrameLayout>
 
+=======
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="113dp"
+        android:layout_height="75dp"
+        android:text="Scan a QR code !"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+>>>>>>> eafb8bd9354baebfa7662318a0cb548b8e2d14ac
 
 </androidx.constraintlayout.widget.ConstraintLayout>
