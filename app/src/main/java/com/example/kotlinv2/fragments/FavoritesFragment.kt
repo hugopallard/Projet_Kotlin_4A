@@ -44,7 +44,7 @@ class FavoritesFragment : Fragment() {
     }
     fun recupererliste():ArrayList<Int>{
         val movieIdList = ArrayList<Int>()
-        val file = File("/data/user/0/com.example.kotlinv2/files/Favoris/listeFavoris.txt")
+        val file = File(requireContext().filesDir,"listeFavoris.txt")
         if (file.exists() && file.canRead()) {
             file.bufferedReader().useLines { lines ->
                 lines.forEach { line ->

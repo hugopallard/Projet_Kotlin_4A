@@ -102,18 +102,24 @@
                             android:layout_weight="1"
                             android:text="TextView" />
 
-                        <RadioButton
+                        <CheckBox
                             android:id="@+id/favButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="55dp" />
+                            android:layout_height="55dp"
+                            android:text="CheckBox" />
+
+                       <!-- <RadioButton
+                            android:id="@+id/favButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="55dp" />-->
 
                     </LinearLayout>
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                   <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/favButton1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-
+-->
                 </LinearLayout>
 
                 <LinearLayout
