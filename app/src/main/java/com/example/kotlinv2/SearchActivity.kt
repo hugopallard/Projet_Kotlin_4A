@@ -1,15 +1,16 @@
 package com.example.kotlinv2
 
 import android.content.Context
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.model.Movie
 import com.example.kotlin.model.MovieResponse
+import com.example.kotlinv2.adapter.SearchMovieAdapter
 import com.example.kotlinv2.fragments.BASE_URL
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,8 +37,16 @@ class SearchActivity : AppCompatActivity() {
             searchMoviesRecyclerView.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+            setSupportActionBar(findViewById(R.id.toolBarDefault))
+
+            findViewById<ImageView>(R.id.goBackButton).setOnClickListener {
+                finish()
+            }
+
             searchQuery = extras.getString("query")!!
+
             Log.e("Search query: ", searchQuery)
+
             val retrofitBuilder =
                 Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(BASE_URL)
@@ -45,7 +54,7 @@ class SearchActivity : AppCompatActivity() {
             getMoviesBySearch(this, retrofitBuilder,searchQuery)
 
             val searchResultTextView = findViewById<TextView>(R.id.searchResultTextView)
-            searchResultTextView.text = "Résultats pour: '" + searchQuery + "'"
+            searchResultTextView.text = "Résultats pour: $searchQuery"
 
         } else {
             Log.d("MovieDetailsActivity", "Error, please give a movie ID")

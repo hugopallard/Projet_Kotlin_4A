@@ -2,6 +2,8 @@ package com.example.kotlinv2
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -25,6 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         // Setting the default fragment
         replaceFragment(homeFragment)
+
+        setSupportActionBar(findViewById(R.id.toolBarDefault))
+        findViewById<ImageView>(R.id.goBackButton).visibility = View.GONE
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
 

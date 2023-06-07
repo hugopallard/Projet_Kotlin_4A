@@ -1,17 +1,18 @@
 package com.example.kotlinv2
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin.model.MovieResponse
+import com.example.kotlinv2.adapter.MovieAdapter
 import com.example.kotlinv2.fragments.BASE_URL
 import com.example.kotlinv2.model.MovieDetail
 import retrofit2.Call
@@ -26,7 +27,6 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var myAdapter: MovieAdapter
     private lateinit var similarMoviesRecyclerView: RecyclerView
     private var movieId: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -35,6 +35,12 @@ class MovieDetailActivity : AppCompatActivity() {
         similarMoviesRecyclerView.setHasFixedSize(true)
         similarMoviesRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        setSupportActionBar(findViewById(R.id.toolBarWithFavorites))
+
+        findViewById<ImageView>(R.id.goBackButton).setOnClickListener {
+            finish()
+        }
 
         val extras = intent.extras
         if (extras != null) {
@@ -88,10 +94,18 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun getSimilarMovies(context: Context, retrofitBuilder: ApiInterface, movieId: Int) {
         val retrofitSimilarMovies =
-            retrofitBuilder.getSimilarMovies(movieId, "53ee22b69f31943882d306c2ba5fb1f9", "en-US", 1)
+            retrofitBuilder.getSimilarMovies(
+                movieId,
+                "53ee22b69f31943882d306c2ba5fb1f9",
+                "en-US",
+                1
+            )
 
         retrofitSimilarMovies.enqueue(object : Callback<MovieResponse?> {
-            override fun onResponse(call: Call<MovieResponse?>, response: Response<MovieResponse?>) {
+            override fun onResponse(
+                call: Call<MovieResponse?>,
+                response: Response<MovieResponse?>
+            ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()!!.results
                     myAdapter = MovieAdapter(context, responseBody)

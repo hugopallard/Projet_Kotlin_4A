@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.model.MovieResponse
 import com.example.kotlinv2.*
+import com.example.kotlinv2.adapter.MovieAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
