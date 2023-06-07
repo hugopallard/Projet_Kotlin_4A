@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinv2.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 
 class FavoritesFragment : Fragment() {
 
@@ -41,6 +42,22 @@ class FavoritesFragment : Fragment() {
 
         return root
     }
+    fun recupererliste():ArrayList<Int>{
+        val movieIdList = ArrayList<Int>()
+        val file = File("/data/user/0/com.example.kotlinv2/files/Favoris/listeFavoris.txt")
+        if (file.exists() && file.canRead()) {
+            file.bufferedReader().useLines { lines ->
+                lines.forEach { line ->
+                    val id = line.trim()
+                    movieIdList.add(Integer.parseInt(id))
 
+                }
+            }
+        } else {
+            println("fichier non existant ou illisible")
+
+        }
+        return movieIdList
+    }
 
 }

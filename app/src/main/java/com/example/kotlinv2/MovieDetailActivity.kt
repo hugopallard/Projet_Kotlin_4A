@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -59,12 +60,21 @@ class MovieDetailActivity : AppCompatActivity() {
 
 
 
-        val fab: FloatingActionButton = findViewById(R.id.favButton)
-        fab.setOnClickListener {
-        val intent = Intent(this, FavorisActivity::class.java)
+        val likeRadioButton: RadioButton = findViewById(R.id.favButton)
+        likeRadioButton.setOnClickListener {
+        /*val intent = Intent(this, FavorisActivity::class.java)
         intent.putExtra("key", movieId) // Remplacez "key" par votre clé et data par la donnée à passer
-        startActivity(intent)}
-        addToFavoris(movieId)
+        startActivity(intent)*/
+            if (likeRadioButton.isChecked) {
+                // Le bouton est coché, donc nous ajoutons le films aux favoris
+                addToFavoris(movieId)
+            } else {
+                // Le bouton n'est pas coché, donc nous retirons le film aux favoris
+                supprimeFavori(movieId)
+            }
+
+        }
+
         Log.d("ajout aux fav", addToFavoris(movieId).toString())
 
     }
