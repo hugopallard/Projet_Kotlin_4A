@@ -2,6 +2,7 @@ package com.example.kotlinv2.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,17 +40,19 @@ class FavoritesFragment : Fragment() {
 //        favorisAdapter.notifyDataSetChanged()
 //        favorisMoviesRecyclerView.adapter = favorisAdapter
 
+        Log.d("liste de favoris",recupererliste().toString())
+
         return root
     }
     fun recupererliste():ArrayList<Int>{
         val movieIdList = ArrayList<Int>()
-        val file = File(requireContext().filesDir,"listeFavoris.txt")
+        val file = File("/data/user/0/com.example.kotlinv2/files/listeFavoris.txt")
         if (file.exists() && file.canRead()) {
             file.bufferedReader().useLines { lines ->
                 lines.forEach { line ->
                     val id = line.trim()
                     movieIdList.add(Integer.parseInt(id))
-
+                    Log.d("film 1 ",id)
                 }
             }
         } else {

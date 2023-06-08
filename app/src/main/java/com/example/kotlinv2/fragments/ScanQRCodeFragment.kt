@@ -16,6 +16,9 @@ import com.example.kotlinv2.MovieDetailActivity
 import com.example.kotlinv2.R
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
+import android.content.pm.ActivityInfo
+import android.widget.ImageView
+
 import com.google.zxing.qrcode.QRCodeReader
 
 class ScanQRCodeFragment : Fragment() {
@@ -27,13 +30,15 @@ class ScanQRCodeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         root = inflater.inflate(R.layout.fragment_scan_qr_code, container, false)
 
         qrCodeScanner = IntentIntegrator.forSupportFragment(this)
         qrCodeScanner.setOrientationLocked(false)
         checkCameraPermission()
         // Démarrez le scanner lorsque le bouton est cliqué
-        val scanButton = root.findViewById<Button>(R.id.scanButton)
+        val scanButton = root.findViewById<ImageView>(R.id.scanButton)
         scanButton.setOnClickListener {
             checkCameraPermission()
         }
@@ -54,6 +59,7 @@ class ScanQRCodeFragment : Fragment() {
     private fun requestCameraPermission() {
         val permission = Manifest.permission.CAMERA
         ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), CAMERA_PERMISSION_REQUEST_CODE)
+
         startScanner()
     }
 
@@ -68,6 +74,7 @@ class ScanQRCodeFragment : Fragment() {
     }
 
     private fun startScanner() {
+        qrCodeScanner.setOrientationLocked(false)
         qrCodeScanner.initiateScan()
     }
 
@@ -83,8 +90,8 @@ class ScanQRCodeFragment : Fragment() {
             val intent = Intent(this@ScanQRCodeFragment.context, MovieDetailActivity::class.java)
             intent.putExtra("movieId",movieId)
             startActivity(intent)
-            // Traitez les données du code QR scanné
         } else {
+            Log.d("Scan","Le scan a échoué")
             // Le scan a été annulé ou n'a pas donné de résultats valides
         }
 

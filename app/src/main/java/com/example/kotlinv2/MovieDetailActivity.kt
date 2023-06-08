@@ -1,10 +1,13 @@
 package com.example.kotlinv2
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toolbar
@@ -29,7 +32,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var myAdapter: MovieAdapter
     private lateinit var similarMoviesRecyclerView: RecyclerView
-    private lateinit var likeButton: CheckBox
+    private lateinit var likeButton: ImageButton
     private var movieId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,10 @@ class MovieDetailActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.goBackButton).setOnClickListener {
             finish()
         }
+
+        val file = File(applicationContext.filesDir, "listeFavoris.txt")
+        val lines = file.readLines().toMutableList()
+
 
         val extras = intent.extras
 
@@ -62,20 +69,27 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
 
-        /*likeButton = findViewById(R.id.favButton)
-        likeButton.setOnCheckedChangeListener { buttonView, isChecked ->
-            *//*val intent = Intent(this, FavorisActivity::class.java)
-            intent.putExtra("key", movieId) // Remplacez "key" par votre clé et data par la donnée à passer
-            startActivity(intent)*//*
-            if (isChecked) {
-                // Le bouton est coché, donc nous ajoutons le films aux favoris
+        likeButton = findViewById(R.id.addToFavorites)
+        var like = false
+        if (lines.contains(movieId.toString())){
+            likeButton.setBackgroundResource(R.drawable.ic_favorite_full)
+            like = true
+        }
+        var background = likeButton.background
+        val originalBackground = likeButton.background
+        likeButton.setOnClickListener {
+            if (like == false){
+                // Le bouton n'est pas encore coché, donc on coche et nous ajoutons le films aux favoris
+                likeButton.setBackgroundResource(R.drawable.ic_favorite_full)
                 addToFavoris(movieId)
-            } else {
-                // Le bouton n'est pas coché, donc nous retirons le film aux favoris
+                like = true
+            }else {
+                likeButton.setBackgroundResource(R.drawable.ic_favorite)
                 supprimeFavori(movieId)
+                like = false
             }
+        }
 
-        }*/
         //Log.d("ajout aux fav", addToFavoris(movieId).toString())
 
     }
@@ -148,16 +162,17 @@ class MovieDetailActivity : AppCompatActivity() {
         val fileName = "listeFavoris.txt"
         val file = File(directory, fileName)
 
-        // Ajouter les favoris dans le fichier
-        val fileWriter = FileWriter(file, true)
-        fileWriter.write("$movieId\n")
+
 
         try {
+
             // Vérifier si le fichier existe
             if (!file.exists()) {
                 file.createNewFile()
                 if (file.exists()) {
+
                     println("Le fichier existe.")
+                    Log.d("film ajouté n°",movieId.toString())
                     val chemin = file.absolutePath.toString()
                     println("Chemin du fichier : $chemin")
                 } else {
@@ -167,30 +182,37 @@ class MovieDetailActivity : AppCompatActivity() {
         } catch (e: Error) {
             Log.d("Error", e.toString())
         }
+        // Ajouter les favoris dans le fichier
+        val lines = file.readLines().toMutableList()
+        if (lines.contains(movieId.toString())) {
+            return println("ce film existe deja")
+        }else{
+            val fileWriter = FileWriter(file, true)
+            fileWriter.write(movieId.toString()+"\n")
+            fileWriter.close()}
+        return println(file.readLines())
     }
 
-/*    fun supprimerFavoriAvecArrayliste(idfilm: Int) {
-        val movieIdList = ArrayList<Int>()
-        val file = File(applicationContext.filesDir, "listeFavoris.txt")
-        if (file.exists() && file.canRead()) {
-            file.bufferedReader().useLines { lines ->
-                lines.forEach { line ->
-                    val id = line.trim()
-                    movieIdList.add(Integer.parseInt(id))
-
-                }
-            }
-            movieIdList.remove(idfilm)
-        } else {
-            println("fichier non existant ou illisible")
-        }
-    }*/
-
     fun supprimeFavori(movieId: Int) {
+
         val file = File(applicationContext.filesDir, "listeFavoris.txt")
         val lines = file.readLines().toMutableList()
         lines.remove(movieId.toString())
         file.writeText(lines.joinToString("\n"))
+
+
+
+
+        /*val position = lines.indexOf(movieId.toString())
+        //lines.removeAt(position)
+        val ligne = lines[position]
+        val nouvelleLigne = ligne.replace(System.lineSeparator()," ")
+        //lines.remove("\n")
+        lines[position] = nouvelleLigne
+        file.writeText(lines.joinToString (" "){ line->line})
+        file.writeText(lines.joinToString(System.lineSeparator()))*/
+        //file.writeText("")
+        return println(file.readLines())
     }
 
 }

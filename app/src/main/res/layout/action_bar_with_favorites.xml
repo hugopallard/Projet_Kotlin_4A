@@ -42,7 +42,7 @@
             android:layout_toEndOf="@id/goBackButton"
             android:layout_marginStart="16dp"/>
 
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addToFavorites"
@@ -50,7 +50,7 @@
             android:layout_alignParentEnd="true"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_favorite"/>
+            android:background="@drawable/ic_favorite"/>
 
 
     </RelativeLayout>
