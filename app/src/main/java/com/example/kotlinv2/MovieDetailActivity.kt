@@ -143,33 +143,35 @@ class MovieDetailActivity : AppCompatActivity() {
         })
     }
 
-    fun addToFavoris(movieId: Int){
+    fun addToFavoris(movieId: Int) {
         val directory = applicationContext.filesDir
         val fileName = "listeFavoris.txt"
-        val file = File(directory,fileName)
+        val file = File(directory, fileName)
 
-            // Ajouter les favoris dans le fichier
-                val fileWriter = FileWriter(file, true)
-                fileWriter.write("$movieId\n")
+        // Ajouter les favoris dans le fichier
+        val fileWriter = FileWriter(file, true)
+        fileWriter.write("$movieId\n")
 
-//        try {
-//            // Vérifier si le fichier existe
-//            if (!file.exists()) {
-//                file.createNewFile()
-//                if (file.exists()) {
-//                    println("Le fichier existe.")
-//                    val chemin = file.absolutePath.toString()
-//                    println("Chemin du fichier : $chemin")
-//                } else {
-//                    println("Le fichier n'existe pas ou le chemin est incorrect.")
-//                }
-//            }
-
+        try {
+            // Vérifier si le fichier existe
+            if (!file.exists()) {
+                file.createNewFile()
+                if (file.exists()) {
+                    println("Le fichier existe.")
+                    val chemin = file.absolutePath.toString()
+                    println("Chemin du fichier : $chemin")
+                } else {
+                    println("Le fichier n'existe pas ou le chemin est incorrect.")
+                }
+            }
+        } catch (e: Error) {
+            Log.d("Error", e.toString())
+        }
     }
 
-    fun supprimerFavoriAvecArrayliste(idfilm:Int){
-        val movieIdList= ArrayList<Int>()
-        val file = File(applicationContext.filesDir,"listeFavoris.txt")
+/*    fun supprimerFavoriAvecArrayliste(idfilm: Int) {
+        val movieIdList = ArrayList<Int>()
+        val file = File(applicationContext.filesDir, "listeFavoris.txt")
         if (file.exists() && file.canRead()) {
             file.bufferedReader().useLines { lines ->
                 lines.forEach { line ->
@@ -181,13 +183,11 @@ class MovieDetailActivity : AppCompatActivity() {
             movieIdList.remove(idfilm)
         } else {
             println("fichier non existant ou illisible")
-
         }
+    }*/
 
-    }
-
-    fun supprimeFavori(movieId: Int){
-        val file = File(applicationContext.filesDir,"listeFavoris.txt")
+    fun supprimeFavori(movieId: Int) {
+        val file = File(applicationContext.filesDir, "listeFavoris.txt")
         val lines = file.readLines().toMutableList()
         lines.remove(movieId.toString())
         file.writeText(lines.joinToString("\n"))
