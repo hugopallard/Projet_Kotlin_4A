@@ -3,6 +3,7 @@ package com.example.kotlinv2
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -20,12 +21,15 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.io.FileWriter
 
 
 class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var myAdapter: MovieAdapter
     private lateinit var similarMoviesRecyclerView: RecyclerView
+    private lateinit var likeButton: CheckBox
     private var movieId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
         val extras = intent.extras
+
         if (extras != null) {
             movieId = extras.getInt("movieId")
             Log.e("Movie id: ", movieId.toString())
@@ -55,6 +60,24 @@ class MovieDetailActivity : AppCompatActivity() {
         } else {
             Log.d("MovieDetailsActivity", "Error, please give a movie ID")
         }
+
+
+        /*likeButton = findViewById(R.id.favButton)
+        likeButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            *//*val intent = Intent(this, FavorisActivity::class.java)
+            intent.putExtra("key", movieId) // Remplacez "key" par votre clé et data par la donnée à passer
+            startActivity(intent)*//*
+            if (isChecked) {
+                // Le bouton est coché, donc nous ajoutons le films aux favoris
+                addToFavoris(movieId)
+            } else {
+                // Le bouton n'est pas coché, donc nous retirons le film aux favoris
+                supprimeFavori(movieId)
+            }
+
+        }*/
+        //Log.d("ajout aux fav", addToFavoris(movieId).toString())
+
     }
 
     private fun getMovieBasedOnId(context: Context, retrofitBuilder: ApiInterface, movieId: Int) {
@@ -120,5 +143,54 @@ class MovieDetailActivity : AppCompatActivity() {
         })
     }
 
+    fun addToFavoris(movieId: Int){
+        val directory = applicationContext.filesDir
+        val fileName = "listeFavoris.txt"
+        val file = File(directory,fileName)
+
+            // Ajouter les favoris dans le fichier
+                val fileWriter = FileWriter(file, true)
+                fileWriter.write("$movieId\n")
+
+//        try {
+//            // Vérifier si le fichier existe
+//            if (!file.exists()) {
+//                file.createNewFile()
+//                if (file.exists()) {
+//                    println("Le fichier existe.")
+//                    val chemin = file.absolutePath.toString()
+//                    println("Chemin du fichier : $chemin")
+//                } else {
+//                    println("Le fichier n'existe pas ou le chemin est incorrect.")
+//                }
+//            }
+
+    }
+
+    fun supprimerFavoriAvecArrayliste(idfilm:Int){
+        val movieIdList= ArrayList<Int>()
+        val file = File(applicationContext.filesDir,"listeFavoris.txt")
+        if (file.exists() && file.canRead()) {
+            file.bufferedReader().useLines { lines ->
+                lines.forEach { line ->
+                    val id = line.trim()
+                    movieIdList.add(Integer.parseInt(id))
+
+                }
+            }
+            movieIdList.remove(idfilm)
+        } else {
+            println("fichier non existant ou illisible")
+
+        }
+
+    }
+
+    fun supprimeFavori(movieId: Int){
+        val file = File(applicationContext.filesDir,"listeFavoris.txt")
+        val lines = file.readLines().toMutableList()
+        lines.remove(movieId.toString())
+        file.writeText(lines.joinToString("\n"))
+    }
 
 }

@@ -48,6 +48,8 @@
             android:id="@+id/addToFavorites"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_favorite"/>
 
 
