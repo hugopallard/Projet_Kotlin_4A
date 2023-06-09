@@ -1,6 +1,5 @@
 package com.example.kotlinv2
 
-import com.example.kotlin.model.Movie
 import com.example.kotlin.model.MovieResponse
 import com.example.kotlinv2.model.MovieDetail
 import retrofit2.Call
@@ -25,12 +24,18 @@ interface ApiInterface {
         ): Call<MovieResponse>
 
     @GET("movie/{movie_id}")
-    fun getMovieBasedOnId(
+    fun getMovieDetailBasedOnId(
         @Path("movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): Call<MovieDetail>
 
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetailBasedOnId_Blocking(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+    ): MovieDetail
 
     @GET("movie/{movie_id}/similar")
     fun getSimilarMovies(

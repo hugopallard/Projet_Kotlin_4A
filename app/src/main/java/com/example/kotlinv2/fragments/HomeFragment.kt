@@ -26,7 +26,7 @@ const val BASE_URL = "https://api.themoviedb.org/3/"
 
 class HomeFragment : Fragment() {
 
-    private lateinit var myAdapter: MovieAdapter
+    private lateinit var fragmentAdapter: MovieAdapter
     private lateinit var popularMovieContainer: LinearLayout
     private lateinit var trendingMoviesContainer: LinearLayout
     private lateinit var popularMoviesRecyclerView: RecyclerView
@@ -98,9 +98,9 @@ class HomeFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()!!.results
-                    myAdapter = MovieAdapter(context, responseBody)
-                    myAdapter.notifyDataSetChanged()
-                    popularMoviesRecyclerView.adapter = myAdapter
+                    fragmentAdapter = MovieAdapter(context, responseBody)
+                    fragmentAdapter.notifyDataSetChanged()
+                    popularMoviesRecyclerView.adapter = fragmentAdapter
                 }
             }
 
@@ -122,9 +122,9 @@ class HomeFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()!!.results
-                    myAdapter = MovieAdapter(context, responseBody)
-                    myAdapter.notifyDataSetChanged()
-                    trendingMoviesRecyclerView.adapter = myAdapter
+                    fragmentAdapter = MovieAdapter(context, responseBody)
+                    fragmentAdapter.notifyDataSetChanged()
+                    trendingMoviesRecyclerView.adapter = fragmentAdapter
                 }
             }
 
