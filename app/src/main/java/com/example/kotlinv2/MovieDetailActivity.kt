@@ -88,7 +88,11 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun getMovieBasedOnId(context: Context, retrofitBuilder: ApiInterface, movieId: Int) {
         val retrofitMovie =
-            retrofitBuilder.getMovieDetailBasedOnId(movieId, "53ee22b69f31943882d306c2ba5fb1f9", "en-US")
+            retrofitBuilder.getMovieDetailBasedOnId(
+                movieId,
+                "53ee22b69f31943882d306c2ba5fb1f9",
+                "en-US"
+            )
 
         retrofitMovie.enqueue(object : Callback<MovieDetail?> {
             override fun onResponse(call: Call<MovieDetail?>, response: Response<MovieDetail?>) {
@@ -169,11 +173,18 @@ class MovieDetailActivity : AppCompatActivity() {
     fun supprimeFavori(movieId: Int) {
 
         Log.d("id: ", movieId.toString())
+        Log.e("Liste fav: ", listOfFavorites.toString())
         listOfFavorites.remove(movieId.toString())
+        Log.e("Liste fav after remove: ", listOfFavorites.toString())
 
-        for (favId in listOfFavorites) {
-            fileContainingFavorites.writeText(favId.toString() + "\n")
+        var content = ""
+        for (i in 0 until listOfFavorites.size) {
+            Log.e("Element: ", listOfFavorites[i])
+            content = content + listOfFavorites[i] + "\n"
         }
+        fileContainingFavorites.writeText(content)
+
+        Log.e("FIle: ", fileContainingFavorites.readText())
 
         /*val position = lines.indexOf(movieId.toString())
         //lines.removeAt(position)
